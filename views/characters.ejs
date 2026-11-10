@@ -1,0 +1,66 @@
+
+<%- include("partials/header") %>
+
+<main class="container">
+    <section class="page-heading">
+        <h1>Explore Characters</h1>
+        <p>Discover characters from the Rick and Morty universe.</p>
+        <p class="results-count">
+            Total characters: <strong><%= count %></strong>
+        </p>
+    </section>
+
+    <section class="character-grid">
+        <% characters.forEach(character => { %>
+            <article class="character-card">
+                <img
+                    src="<%= character.image %>"
+                    alt="<%= character.name %>"
+                >
+
+                <div class="character-info">
+                    <h2><%= character.name %></h2>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <%= character.status %>
+                    </p>
+
+                    <p>
+                        <strong>Species:</strong>
+                        <%= character.species %>
+                    </p>
+
+                    <p>
+                        <strong>Gender:</strong>
+                        <%= character.gender %>
+                    </p>
+
+                    <a href="/character/<%= character.id %>" class="details-link">
+                        View Details
+                    </a>
+                </div>
+            </article>
+        <% }) %>
+    </section>
+
+    <nav class="pagination">
+        <% if (currentPage > 1) { %>
+            <a href="/characters?page=<%= currentPage - 1 %>">
+                Previous
+            </a>
+        <% } %>
+
+        <span>
+            Page <%= currentPage %> of <%= totalPages %>
+        </span>
+
+        <% if (currentPage < totalPages) { %>
+            <a href="/characters?page=<%= currentPage + 1 %>">
+                Next
+            </a>
+        <% } %>
+    </nav>
+</main>
+
+<%- include("partials/footer") %>
