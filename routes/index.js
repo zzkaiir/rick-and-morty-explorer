@@ -9,5 +9,5 @@ router.get("/", (req, res) => {
 });
 
 router.get("/characters", characterController.showCharacters);
-
+router.get("/search", characterController.searchCharacters);
 module.exports = router;

@@ -69,6 +69,40 @@ body {
     margin-top: 10px;
 }
 
+
+/* Search form */
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto 30px;
+    max-width: 500px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.search-form button {
+    padding: 12px 20px;
+    background-color: #97ce4c;
+    color: #20232a;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #82b83c;
+}
+
+
 /* Character cards */
 
 .character-grid {

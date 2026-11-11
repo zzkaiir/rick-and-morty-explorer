@@ -10,6 +10,26 @@
         </p>
     </section>
 
+<form action="/search" method="GET" class="search-form">
+    <input
+        type="text"
+        name="q"
+        placeholder="Search characters by name..."
+        value="<%= searchQuery || '' %>"
+        required
+    >
+    <button type="submit">Search</button>
+</form>
+
+<% if (searchQuery) { %>
+    <p>Search results for: <strong><%= searchQuery %></strong></p>
+<% } %>
+
+<% if (characters.length === 0) { %>
+    <p class="no-results">
+        No characters found. Try another name.
+    </p>
+<% } else { %>
     <section class="character-grid">
         <% characters.forEach(character => { %>
             <article class="character-card">
@@ -43,7 +63,9 @@
             </article>
         <% }) %>
     </section>
+<% } %>
 
+    <% if (totalPages > 0) { %>
     <nav class="pagination">
         <% if (currentPage > 1) { %>
             <a href="/characters?page=<%= currentPage - 1 %>">
@@ -61,6 +83,7 @@
             </a>
         <% } %>
     </nav>
+<% } %>
 </main>
 
 <%- include("partials/footer") %>
