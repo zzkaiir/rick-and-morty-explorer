@@ -13,6 +13,24 @@ async function getCharacters(params = {}) {
 
     return response.data;
 }
+async function getAllCharacters() {
+    const firstResponse = await api.get("/character");
+
+    const totalCharacters = firstResponse.data.info.count;
+
+    const characterIds = Array.from(
+        { length: totalCharacters },
+        (_, index) => index + 1
+    );
+
+    const response = await api.get(
+        `/character/${characterIds.join(",")}`
+    );
+
+    return Array.isArray(response.data)
+        ? response.data
+        : [response.data];
+}
 
 async function getCharacterById(id) {
     const response = await api.get(`/character/${id}`);
@@ -28,6 +46,7 @@ async function getEpisodes() {
 
 module.exports = {
     getCharacters,
+    getAllCharacters,
     getCharacterById,
     getEpisodes
 };

@@ -1,5 +1,29 @@
 
 const rickAndMortyService = require("../services/rickAndMortyService");
+const characterCache = {
+    characters: null,
+    expiresAt: 0
+};
+
+const CACHE_DURATION = 10 * 60 * 1000;
+
+async function getCachedCharacters() {
+    if (
+        characterCache.characters &&
+        characterCache.expiresAt > Date.now()
+    ) {
+        return characterCache.characters;
+    }
+
+    const characters = await rickAndMortyService.getAllCharacters();
+
+    characterCache.characters = characters;
+    characterCache.expiresAt = Date.now() + CACHE_DURATION;
+
+    return characters;
+}
+
+
 
 async function showCharacters(req, res, next) {
     try {
@@ -9,19 +33,44 @@ async function showCharacters(req, res, next) {
             return res.redirect("/characters");
         }
 
-        const data = await rickAndMortyService.getCharacters({
-            page: page
+        const status = req.query.status || "";
+        const gender = req.query.gender || "";
+        const sort = req.query.sort || "asc";
+
+        let allCharacters = await getCachedCharacters();
+
+        allCharacters = allCharacters.filter(character => {
+            const matchesStatus = !status ||
+                character.status.toLowerCase() === status.toLowerCase();
+
+            const matchesGender = !gender ||
+                character.gender.toLowerCase() === gender.toLowerCase();
+
+            return matchesStatus && matchesGender;
         });
 
-        const characters = data.results.sort((a, b) =>
-            a.name.localeCompare(b.name)
+        allCharacters.sort((a, b) => {
+            const comparison = a.name.localeCompare(b.name);
+
+            return sort === "desc" ? -comparison : comparison;
+        });
+
+        const charactersPerPage = 20;
+        const startIndex = (page - 1) * charactersPerPage;
+
+        const characters = allCharacters.slice(
+            startIndex,
+            startIndex + charactersPerPage
         );
 
         res.render("characters", {
             characters: characters,
-            count: data.info.count,
+            count: allCharacters.length,
             currentPage: page,
-            totalPages: data.info.pages,
+            totalPages: Math.ceil(allCharacters.length / charactersPerPage),
+            status: status,
+            gender: gender,
+            sort: sort,
             searchQuery: ""
         });
 
@@ -55,6 +104,9 @@ async function searchCharacters(req, res, next) {
             count: data.info.count,
             currentPage: page,
             totalPages: data.info.pages,
+            status: "",
+            gender: "",
+            sort: "asc",
             searchQuery: query
         });
 
@@ -65,6 +117,9 @@ async function searchCharacters(req, res, next) {
                 count: 0,
                 currentPage: 1,
                 totalPages: 0,
+                status: "",
+                gender: "",
+                sort: "asc",
                 searchQuery: query
             });
         }
