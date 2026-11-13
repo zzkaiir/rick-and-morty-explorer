@@ -10,6 +10,9 @@ body {
     background-color: #f4f6f8;
     color: #222;
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -51,6 +54,12 @@ body {
 
 .nav-links a:hover {
     color: #97ce4c;
+}
+
+/* Main content */
+
+main {
+    flex: 1;
 }
 
 /* Page heading */
@@ -219,7 +228,6 @@ body {
     color: white;
     text-align: center;
     padding: 25px 0;
-    margin-top: 30px;
 }
 
 /* Responsive design */
@@ -243,5 +251,157 @@ body {
 @media (max-width: 450px) {
     .character-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* 404 page */
+
+.error-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100%;
+}
+
+
+/* Character details page */
+
+.character-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.character-profile {
+    display: flex;
+    width: 100%;
+    max-width: 850px;
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.profile-image {
+    width: 42%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f6f8;
+}
+
+.profile-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: contain;
+}
+
+.profile-info {
+    flex: 1;
+    padding: 20px;
+}
+
+.profile-info h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #20232a;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 12px;
+    color: #555;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-alive {
+    background-color: #55cc44;
+}
+
+.status-dead {
+    background-color: #d63d2e;
+}
+
+.status-unknown {
+    background-color: #999;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+    color: #888;
+    font-size: 13px;
+}
+
+.detail-value {
+    color: #20232a;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 9px 16px;
+    background-color: #97ce4c;
+    color: #20232a;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #82b83c;
+}
+
+/* Character details responsive design */
+
+@media (max-width: 650px) {
+    .character-profile {
+        flex-direction: column;
+    }
+
+    .profile-image {
+        width: 100%;
+    }
+
+    .profile-image img {
+        min-height: 0;
+        height: auto;
+    }
+
+    .profile-info {
+        padding: 25px;
+    }
+
+    .profile-info h1 {
+        font-size: 26px;
     }
 }

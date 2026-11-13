@@ -128,8 +128,31 @@ async function searchCharacters(req, res, next) {
     }
 }
 
+async function showCharacterDetails(req, res, next) {
+    try {
+        const id = Number.parseInt(req.params.id, 10);
+
+        if (!Number.isInteger(id) || id < 1) {
+            return res.status(404).render("404");
+        }
+
+        const character = await rickAndMortyService.getCharacterById(id);
+
+        res.render("character-details", {
+            character: character
+        });
+
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            return res.status(404).render("404");
+        }
+
+        next(error);
+    }
+}
 
 module.exports = {
     showCharacters,
-    searchCharacters
+    searchCharacters,
+    showCharacterDetails
 };

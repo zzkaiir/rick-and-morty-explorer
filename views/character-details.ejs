@@ -1,0 +1,60 @@
+
+<%- include("partials/header") %>
+
+<main class="container character-page">
+    <section class="character-profile">
+
+        <div class="profile-image">
+            <img
+                src="<%= character.image %>"
+                alt="<%= character.name %>"
+            >
+        </div>
+
+        <div class="profile-info">
+
+            <h1><%= character.name %></h1>
+
+            <div class="status">
+                <span class="status-indicator status-<%= character.status.toLowerCase() %>"></span>
+                <span><%= character.status %> - <%= character.species %></span>
+            </div>
+
+            <div class="profile-details">
+
+                <div class="detail-item">
+                    <span class="detail-label">Gender</span>
+                    <span class="detail-value"><%= character.gender %></span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Species</span>
+                    <span class="detail-value"><%= character.species %></span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Type</span>
+                    <span class="detail-value"><%= character.type || "Unknown" %></span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Origin</span>
+                    <span class="detail-value"><%= character.origin.name %></span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Last known location</span>
+                    <span class="detail-value"><%= character.location.name %></span>
+                </div>
+
+            </div>
+
+            <a href="/characters" class="back-button">
+                ← Back to Characters
+            </a>
+
+        </div>
+    </section>
+</main>
+
+<%- include("partials/footer") %>
