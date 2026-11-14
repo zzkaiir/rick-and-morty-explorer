@@ -151,8 +151,64 @@ async function showCharacterDetails(req, res, next) {
     }
 }
 
+async function showEpisodes(req, res, next) {
+    try {
+        const episodes = await rickAndMortyService.getEpisodes();
+
+        res.render("episodes", {
+            episodes: episodes
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function showLocations(req, res, next) {
+    try {
+        const locations = await rickAndMortyService.getLocations();
+
+        res.render("locations", {
+            locations: locations
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function showEpisodeDetails(req, res, next) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(404).render("404");
+        }
+
+        const episode = await rickAndMortyService.getEpisodeById(id);
+        const characters = await rickAndMortyService.getCharactersByUrls(
+            episode.characters
+        );
+    
+        res.render("episode-details", {
+            episode: episode,
+            characters: characters
+        });
+
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            return res.status(404).render("404");
+        }
+
+        next(error);
+    }
+}
+
 module.exports = {
     showCharacters,
     searchCharacters,
-    showCharacterDetails
+    showCharacterDetails,
+    showEpisodes,
+    showLocations,
+    showEpisodeDetails
 };

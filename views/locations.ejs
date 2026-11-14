@@ -1,0 +1,34 @@
+
+<%- include("partials/header") %>
+
+<main class="container">
+    <section class="page-heading">
+        <h1>Rick and Morty Locations</h1>
+        <p>Explore all locations from the Rick and Morty universe.</p>
+    </section>
+
+    <section class="episodes-grid">
+        <% locations.forEach(location => { %>
+            <div class="episode-card">
+                <h2><%= location.name %></h2>
+
+                <p>
+                    <strong>Type:</strong>
+                    <%= location.type %>
+                </p>
+
+                <p>
+                    <strong>Dimension:</strong>
+                    <%= location.dimension %>
+                </p>
+
+                <p>
+                    <strong>Residents:</strong>
+                    <%= location.residents.length %>
+                </p>
+            </div>
+        <% }) %>
+    </section>
+</main>
+
+<%- include("partials/footer") %>

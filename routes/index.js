@@ -11,4 +11,7 @@ router.get("/", (req, res) => {
 router.get("/characters", characterController.showCharacters);
 router.get("/search", characterController.searchCharacters);
 router.get("/character/:id", characterController.showCharacterDetails);
+router.get("/episodes", characterController.showEpisodes);
+router.get("/locations", characterController.showLocations);
+router.get("/episode/:id", characterController.showEpisodeDetails);
 module.exports = router;

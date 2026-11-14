@@ -1,0 +1,43 @@
+<%- include("partials/header") %>
+
+<main class="container">
+    <section class="page-heading">
+        <h1><%= episode.name %></h1>
+        <p>Episode details</p>
+    </section>
+
+    <section class="episode-details-card">
+        <p>
+            <strong>Episode code:</strong>
+            <%= episode.episode %>
+        </p>
+
+        <p>
+            <strong>Air date:</strong>
+            <%= episode.air_date %>
+        </p>
+
+        <p>
+            <strong>Created:</strong>
+            <%= episode.created.split("T")[0] %>
+        </p>
+
+        <h2>Characters in this episode</h2>
+
+        <p>Total characters: <%= characters.length %></p>
+
+<div class="episode-characters">
+    <% characters.forEach(character => { %>
+        <a href="/character/<%= character.id %>" class="episode-character">
+            <img src="<%= character.image %>" alt="<%= character.name %>">
+
+            <h3><%= character.name %></h3>
+        </a>
+    <% }) %>
+</div>
+
+        <a href="/episodes" class="back-link">Back to Episodes</a>
+    </section>
+</main>
+
+<%- include("partials/footer") %>

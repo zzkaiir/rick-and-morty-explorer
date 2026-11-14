@@ -405,3 +405,116 @@ main {
         font-size: 26px;
     }
 }
+
+/* Episodes page */
+
+.episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.episode-card {
+    background-color: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #97ce4c;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.episode-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.episode-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #20232a;
+}
+
+.episode-code {
+    color: #82b83c;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.episode-card p {
+    margin-bottom: 6px;
+    color: #555;
+}
+
+@media (max-width: 900px) {
+    .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .episodes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Episode character cards */
+
+.episode-characters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.episode-character {
+    display: block;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.episode-character:hover {
+    transform: translateY(-4px);
+}
+
+.episode-character img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.episode-character h3 {
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Back to Episodes button */
+
+.back-link {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 50px;
+    padding: 12px 22px;
+    background-color: #97ce4c;
+    color: #20232a;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+    background-color: #82b83c;
+    transform: translateY(-2px);
+}
