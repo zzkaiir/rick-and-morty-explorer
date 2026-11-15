@@ -101,6 +101,10 @@ async function getLocations() {
     return locations;
 }
 
+async function getLocationById(id) {
+    return getCachedApiData(`/location/${id}`);
+}
+
 async function getEpisodeById(id) {
     return getCachedApiData(`/episode/${id}`);
 }
@@ -123,6 +127,7 @@ module.exports = {
     getCharacterById,
     getEpisodes,
     getLocations,
+    getLocationById,
     getEpisodeById,
     getCharactersByUrls
 };

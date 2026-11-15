@@ -27,11 +27,11 @@ async function getCachedCharacters() {
 
 async function showCharacters(req, res, next) {
     try {
-        const page = Number.parseInt(req.query.page, 10) || 1;
+    const page = Number(req.query.page) || 1;
 
-        if (page < 1) {
-            return res.redirect("/characters");
-        }
+    if (!Number.isInteger(page) || page < 1) {
+        return res.redirect("/characters");
+    }
 
         const status = req.query.status || "";
         const gender = req.query.gender || "";
@@ -87,8 +87,11 @@ async function searchCharacters(req, res, next) {
         return res.redirect("/characters");
     }
 
-    const page = Number.parseInt(req.query.page, 10) || 1;
+    const page = Number(req.query.page) || 1;
 
+    if (!Number.isInteger(page) || page < 1) {
+        return res.redirect(`/search?q=${encodeURIComponent(query)}`);
+    }
     try {
         const data = await rickAndMortyService.getCharacters({
             name: query,
@@ -130,7 +133,7 @@ async function searchCharacters(req, res, next) {
 
 async function showCharacterDetails(req, res, next) {
     try {
-        const id = Number.parseInt(req.params.id, 10);
+        const id = Number(req.params.id);
 
         if (!Number.isInteger(id) || id < 1) {
             return res.status(404).render("404");
@@ -177,6 +180,33 @@ async function showLocations(req, res, next) {
     }
 }
 
+async function showLocationDetails(req, res, next) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(404).render("404");
+        }
+
+        const location = await rickAndMortyService.getLocationById(id);
+        const characters = await rickAndMortyService.getCharactersByUrls(
+            location.residents
+        );
+
+        res.render("location-details", {
+            location: location,
+            characters: characters
+        });
+
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            return res.status(404).render("404");
+        }
+
+        next(error);
+    }
+}
+
 async function showEpisodeDetails(req, res, next) {
     try {
         const id = Number(req.params.id);
@@ -210,5 +240,6 @@ module.exports = {
     showCharacterDetails,
     showEpisodes,
     showLocations,
+    showLocationDetails,
     showEpisodeDetails
 };

@@ -1,7 +1,13 @@
 function errorHandler(err, req, res, next) {
     console.error("Application error:", err);
 
-    res.status(err.status || 500).render("error", {
+    if (res.headersSent) {
+        return next(err);
+    }
+
+    const statusCode = err.statusCode || err.status || 500;
+
+    res.status(statusCode).render("error", {
         message: "Something went wrong. Please try again later."
     });
 }

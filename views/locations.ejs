@@ -9,7 +9,7 @@
 
     <section class="episodes-grid">
         <% locations.forEach(location => { %>
-            <div class="episode-card">
+            <a href="/location/<%= location.id %>" class="episode-card">
                 <h2><%= location.name %></h2>
 
                 <p>
@@ -26,7 +26,7 @@
                     <strong>Residents:</strong>
                     <%= location.residents.length %>
                 </p>
-            </div>
+            </a>
         <% }) %>
     </section>
 </main>

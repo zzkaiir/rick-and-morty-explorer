@@ -13,5 +13,6 @@ router.get("/search", characterController.searchCharacters);
 router.get("/character/:id", characterController.showCharacterDetails);
 router.get("/episodes", characterController.showEpisodes);
 router.get("/locations", characterController.showLocations);
+router.get("/location/:id", characterController.showLocationDetails);
 router.get("/episode/:id", characterController.showEpisodeDetails);
 module.exports = router;
