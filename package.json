@@ -1,15 +1,16 @@
+
 {
   "name": "rick-and-morty-explorer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A web application for exploring characters, episodes, and locations from the Rick and Morty API.",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["rick-and-morty", "express", "nodejs", "api", "ejs"],
+  "author": "Kairbekova Zarina",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -20,5 +21,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "overrides": {
+    "minimatch": "^11.0.1"
   }
 }

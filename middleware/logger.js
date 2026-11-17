@@ -1,3 +1,4 @@
+// Log the date, time, HTTP method, and URL of each request
 function logger(req, res, next) {
     const time = new Date().toLocaleString();
 

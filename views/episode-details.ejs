@@ -7,20 +7,22 @@
     </section>
 
     <section class="episode-details-card">
-        <p>
-            <strong>Episode code:</strong>
-            <%= episode.episode %>
-        </p>
+    <div class="episode-info">
+        <div class="episode-info-item">
+            <strong>Episode code</strong>
+            <p><%= episode.episode %></p>
+        </div>
 
-        <p>
-            <strong>Air date:</strong>
-            <%= episode.air_date %>
-        </p>
+        <div class="episode-info-item">
+            <strong>Air date</strong>
+            <p><%= episode.air_date %></p>
+        </div>
 
-        <p>
-            <strong>Created:</strong>
-            <%= episode.created.split("T")[0] %>
-        </p>
+        <div class="episode-info-item">
+            <strong>Created</strong>
+            <p><%= episode.created.split("T")[0] %></p>
+        </div>
+    </div>
 
         <h2>Characters in this episode</h2>
 
@@ -29,7 +31,7 @@
 <div class="episode-characters">
     <% characters.forEach(character => { %>
         <a href="/character/<%= character.id %>" class="episode-character">
-            <img src="<%= character.image %>" alt="<%= character.name %>">
+            <img src="<%= character.image %>" alt="<%= character.name %>" loading="lazy" onerror="retryImage(this)">
 
             <h3><%= character.name %></h3>
         </a>

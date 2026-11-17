@@ -7,48 +7,40 @@
         <p>Location Details</p>
     </section>
 
-    <section class="episode-card">
-        <p>
-            <strong>Type:</strong>
-            <%= location.type %>
-        </p>
+    <section class="episode-details-card">
+        <div class="episode-info">
+            <div class="episode-info-item">
+                <strong>Type</strong>
+                <p><%= location.type %></p>
+            </div>
 
-        <p>
-            <strong>Dimension:</strong>
-            <%= location.dimension %>
-        </p>
+            <div class="episode-info-item">
+                <strong>Dimension</strong>
+                <p><%= location.dimension %></p>
+            </div>
 
-        <p>
-            <strong>Number of Residents:</strong>
-            <%= characters.length %>
-        </p>
-    </section>
-
-    <section class="page-heading">
+            <div class="episode-info-item">
+                <strong>Number of Residents</strong>
+                <p><%= characters.length %></p>
+            </div>
+        </div>
         <h2>Residents</h2>
-    </section>
 
-    <section class="episodes-grid">
-        <% characters.forEach(character => { %>
-            <a href="/character/<%= character.id %>" class="episode-card">
-                <img src="<%= character.image %>" alt="<%= character.name %>">
-
-                <h3><%= character.name %></h3>
-
-                <p>
-                    <strong>Status:</strong>
-                    <%= character.status %>
-                </p>
-
-                <p>
-                    <strong>Species:</strong>
-                    <%= character.species %>
-                </p>
-            </a>
-        <% }) %>
-    </section>
+       <% if (characters.length === 0) { %>
+        <p class="no-results">No known residents in this location.</p>
+    <% } else { %>
+        <section class="episode-characters">
+            <% characters.forEach(character => { %>
+                <a href="/character/<%= character.id %>" class="episode-character">
+                    <img src="<%= character.image %>" alt="<%= character.name %>" loading="lazy" onerror="retryImage(this)">
+                    <h3><%= character.name %></h3>
+                </a>
+            <% }) %>
+        </section>
+    <% } %>
 
     <a href="/locations" class="back-link">Back to Locations</a>
+</section>
 </main>
 
 <%- include("partials/footer") %>

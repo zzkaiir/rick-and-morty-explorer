@@ -4,28 +4,40 @@
 <main class="container">
     <section class="page-heading">
         <h1>Explore Characters</h1>
-        <p>Discover characters from the Rick and Morty universe.</p>
+        <p>Discover characters from the Rick and Morty universe</p>
         <p class="results-count">
             Total characters: <strong><%= count %></strong>
         </p>
     </section>
 
+<% messages.forEach(message => { %>
+    <p class="form-message"><%= message %></p>
+<% }) %>
+
 <form action="/search" method="GET" class="search-form">
+    <label for="character-search" class="visually-hidden">Character name</label>
     <input
         type="text"
+        id="character-search"
         name="q"
         placeholder="Search characters by name..."
         value="<%= searchQuery || '' %>"
-        required
+        maxlength="50"
     >
+    <input type="hidden" name="status" value="<%= status || '' %>">
+    <input type="hidden" name="gender" value="<%= gender || '' %>">
+    <input type="hidden" name="sort" value="<%= sort || 'asc' %>">
     <button type="submit">Search</button>
 </form>
 
 <% if (searchQuery) { %>
-    <p>Search results for: <strong><%= searchQuery %></strong></p>
+    <p class="search-results-heading">
+        Search results for: <strong><%= searchQuery %></strong>
+    </p>
 <% } %>
 
 <form action="/characters" method="GET" class="filter-form">
+    <input type="hidden" name="q" value="<%= searchQuery || '' %>">
 
     <label for="status">Status:</label>
     <select name="status" id="status">
@@ -55,7 +67,7 @@
 
 <% if (characters.length === 0) { %>
     <p class="no-results">
-        No characters found. Try another name.
+        No characters found. Try another name
     </p>
 <% } else { %>
     <section class="character-grid">
@@ -65,7 +77,7 @@
                     src="<%= character.image %>"
                     alt="<%= character.name %>"
                     loading="lazy"
-                    onerror="this.onerror=null; setTimeout(() => { this.src = this.src + '?retry=' + Date.now(); }, 1000)"
+                    onerror="retryImage(this)"
                 >
 
                 <div class="character-info">
@@ -98,7 +110,7 @@
     <% if (totalPages > 0) { %>
     <nav class="pagination">
         <% if (currentPage > 1) { %>
-            <a href="/characters?status=<%= encodeURIComponent(status) %>&gender=<%= encodeURIComponent(gender) %>&sort=<%= encodeURIComponent(sort) %>&page=<%= currentPage - 1 %>">
+            <a href="/characters?q=<%= encodeURIComponent(searchQuery || '') %>&status=<%= encodeURIComponent(status) %>&gender=<%= encodeURIComponent(gender) %>&sort=<%= encodeURIComponent(sort) %>&page=<%= currentPage - 1 %>">
                 Previous
             </a>
         <% } %>
@@ -107,8 +119,7 @@
             Page <%= currentPage %> of <%= totalPages %>
         </span>
 
-        <% if (currentPage < totalPages) { %>
-            <a href="/characters?status=<%= encodeURIComponent(status) %>&gender=<%= encodeURIComponent(gender) %>&sort=<%= encodeURIComponent(sort) %>&page=<%= currentPage + 1 %>">
+        <% if (currentPage < totalPages) { %><a href="/characters?q=<%= encodeURIComponent(searchQuery || '') %>&status=<%= encodeURIComponent(status) %>&gender=<%= encodeURIComponent(gender) %>&sort=<%= encodeURIComponent(sort) %>&page=<%= currentPage + 1 %>">
                 Next
             </a>
         <% } %>
