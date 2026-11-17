@@ -71,9 +71,21 @@ The application uses the following API endpoints:
 
    npm install
 
-4. Copy the .env.example file and rename the copy to .env
+4. Create the environment file
 
-5. Make sure the .env file contains the correct API configuration
+   Copy the example file and create a new `.env` file
+
+   For Windows PowerShell:
+
+   Copy-Item .env.example .env
+
+   For macOS and Linux:
+
+   cp .env.example .env
+
+5. Configure environment variables
+
+   Open the `.env` file and make sure it contains:
 
    PORT=3000
    API_BASE_URL=https://rickandmortyapi.com/api
